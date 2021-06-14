@@ -1,9 +1,13 @@
+import * as path from 'path';
 import {ApplicationConfig, Lb4HeadfirstApplication} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new Lb4HeadfirstApplication(options);
+  // APPLICATION LEVEL CONTEXT
+  const basePath = path.resolve(__dirname, '..');
+  app.bind('basePath').to(basePath);
   await app.boot();
   await app.start();
 
