@@ -30,15 +30,6 @@ const validation = (DTOClass: any): Interceptor => {
       return httpRes;
     }
 
-    // if (invocationCtx.methodName == 'create')
-    //     Object.assign(order, invocationCtx.args[0]);
-    // else if (invocationCtx.methodName == 'updateById')
-    //     Object.assign(order, invocationCtx.args[1]);
-
-    // if (order.orderNum.length !== 6) {
-    //     throw new HttpErrors.InternalServerError('Invalid order number');
-    // }
-
     const result = await next();
 
     // after
