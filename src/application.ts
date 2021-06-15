@@ -1,6 +1,6 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
-import {RepositoryMixin} from '@loopback/repository';
+import {RepositoryMixin, SchemaMigrationOptions} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
@@ -41,5 +41,14 @@ export class Lb4HeadfirstApplication extends BootMixin(
       },
     };
     // setup template engine
+  }
+
+  async migrateSchema(options?: SchemaMigrationOptions) {
+    // 1. Run migration scripts provided by connectors
+    await super.migrateSchema(options);
+
+    // 2. Make further changes. When creating predefined model instances,
+    // handle the case when these instances already exist.
+    // other migrations
   }
 }

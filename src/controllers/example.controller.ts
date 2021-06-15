@@ -12,7 +12,7 @@ export class ExampleController {
     @inject(RestBindings.Http.CONTEXT) private requestCtx: RequestContext,
     @inject('basePath') private basePath: string,
   ) {}
-  @get('')
+  @get('/')
   home() {
     const {request, response} = this.requestCtx;
     response.set('Content-Type', 'text/html');

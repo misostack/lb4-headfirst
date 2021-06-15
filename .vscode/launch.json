@@ -3,11 +3,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Loopback4Debug",
+      "preLaunchTask": "npm: build",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
       "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/dist/index.js",
+      "program": "${workspaceFolder}/src/index.ts",
     },
     {
       "type": "node",
