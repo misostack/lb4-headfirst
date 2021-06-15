@@ -51,7 +51,15 @@
       "group": "build",
       "problemMatcher": [],
       "label": "npm: build",
-      "detail": "lb-tsc"
+      "detail": "lb-tsc",
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": true
+			}
     }
   ]
 }

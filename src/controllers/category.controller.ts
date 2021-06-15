@@ -1,3 +1,4 @@
+import {intercept} from '@loopback/context';
 import {
   Count,
   CountSchema,
@@ -7,23 +8,25 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
+import {CreateCategoryDTO} from '../dtos';
+import {validation} from '../interceptors';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
 
 export class CategoryController {
   constructor(
     @repository(CategoryRepository)
-    public categoryRepository : CategoryRepository,
+    public categoryRepository: CategoryRepository,
   ) {}
 
   @post('/categories')
@@ -31,6 +34,7 @@ export class CategoryController {
     description: 'Category model instance',
     content: {'application/json': {schema: getModelSchemaRef(Category)}},
   })
+  @intercept(validation(CreateCategoryDTO))
   async create(
     @requestBody({
       content: {
@@ -44,7 +48,8 @@ export class CategoryController {
     })
     category: Omit<Category, 'id'>,
   ): Promise<Category> {
-    return this.categoryRepository.create(category);
+    // return this.categoryRepository.create(category);
+    return {} as Category;
   }
 
   @get('/categories/count')
@@ -52,9 +57,7 @@ export class CategoryController {
     description: 'Category model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Category) where?: Where<Category>,
-  ): Promise<Count> {
+  async count(@param.where(Category) where?: Where<Category>): Promise<Count> {
     return this.categoryRepository.count(where);
   }
 
@@ -106,7 +109,8 @@ export class CategoryController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Category, {exclude: 'where'}) filter?: FilterExcludingWhere<Category>
+    @param.filter(Category, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Category>,
   ): Promise<Category> {
     return this.categoryRepository.findById(id, filter);
   }
